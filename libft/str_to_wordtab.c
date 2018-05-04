@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   str_to_wordtab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgaspart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/30 08:09:19 by cgaspart          #+#    #+#             */
-/*   Updated: 2018/04/30 08:28:26 by cgaspart         ###   ########.fr       */
+/*   Created: 2018/05/03 14:13:41 by cgaspart          #+#    #+#             */
+/*   Updated: 2018/05/03 14:13:43 by cgaspart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+char	**str_to_wordtab(char *str)
+{
+	char **res;
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line.h"
-# include <unistd.h>
-# include <termios.h>
-
-void	prompt();
-void	get_input(char **user_input);
-#endif
+	res = malloc(sizeof(char*) * get_nbr_word(str) + 1);
+}

@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   get_nbr_word.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgaspart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/30 08:09:19 by cgaspart          #+#    #+#             */
-/*   Updated: 2018/04/30 08:28:26 by cgaspart         ###   ########.fr       */
+/*   Created: 2018/05/03 14:16:36 by cgaspart          #+#    #+#             */
+/*   Updated: 2018/05/03 14:16:39 by cgaspart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line.h"
-# include <unistd.h>
-# include <termios.h>
+int		get_nbr_word(char *str)
+{
+	int i;
+	int nbr;
 
-void	prompt();
-void	get_input(char **user_input);
-#endif
+	i = 0;
+	if (str == NULL)
+		return (0);
+	nbr = 1;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+			nbr++;
+		i++;
+	}
+	return (nbr);
+}

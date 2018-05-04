@@ -14,15 +14,16 @@
 
 int main(void)
 {
-	while (42)
-	{
-		char *line;
+	char	*user_input;
+	int		stop;
 
-		ft_putstr("$> ");
-		get_next_line(0, &line);
-		ft_putstr(line);
-		ft_putchar('\n');
-		free(line);
+	run = 1;
+	while (run)
+	{
+		prompt();
+		get_input(&user_input);
+		run = interpretor(user_input);
+		free(user_input);
 	}
 	return (1);
 }
