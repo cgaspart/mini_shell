@@ -32,7 +32,13 @@ char	*get_next_word(char *str, int o)
 
 	i = 0;
 	res = malloc(sizeof(char) * word_len(str, o) + 1);
-	while (str[o] != '\0' && str[o] != '\n' && str[o] != '\t')
+	while (str[o + i] != '\0' && str[o + i] != '\n' && str[o + i] != '\t')
+	{
+		res[i] = str[o + i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
 
 char	**str_to_wordtab(char *str)
@@ -40,20 +46,20 @@ char	**str_to_wordtab(char *str)
 	char	**res;
 	int		o;
 	int		i;
-	int		j;
 
 	o = 0;
-	i = 0;
-	j = 0;
+	i = 1;
 	res = malloc(sizeof(char*) * get_nbr_word(str) + 1);
-	res[0] =
+	res[0] = get_next_word(str, 0);
 	while (str[o] != '\0')
 	{
 		if (str[o] == '\n' || str[o] == '\t')
 		{
+			res[i] = get_next_word(str, o + 1);
+			i++;
 		}
+		o++;
 	}
 	res[i] = NULL;
-	ft_putstr(res[0]);
 	return (res);
 }
