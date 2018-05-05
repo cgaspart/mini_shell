@@ -15,7 +15,7 @@
 int main(void)
 {
 	char	*user_input;
-	int		stop;
+	int		run;
 
 	run = 1;
 	while (run)

@@ -20,4 +20,5 @@
 
 void	prompt();
 void	get_input(char **user_input);
+int		interpretor(char *user_input);
 #endif

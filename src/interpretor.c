@@ -10,7 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
 int		interpretor(char *user_input)
 {
-	
+	char **command;
+
+	command = str_to_wordtab(user_input);
+	ft_puttab(command);
+	return (1);
 }
