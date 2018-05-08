@@ -18,7 +18,16 @@
 # include <unistd.h>
 # include <termios.h>
 
+typedef struct		s_env
+{
+	char			*name;
+	char			*data;
+	struct s_env	*next;
+}					t_env;
+int		setup(t_env **my_env);
 void	prompt();
 void	get_input(char **user_input);
-int		interpretor(char *user_input);
+int		interpretor(char *user_input, t_env **my_env);
+t_env	*get_env(void);
+char	**cp_env(void);
 #endif

@@ -10,7 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		setup()
+#include "minishell.h"
+
+int		setup(t_env **my_env)
 {
-	
+	*my_env = get_env();
+	if (my_env != NULL)
+		return (1);
+	else
+		return (0);
 }

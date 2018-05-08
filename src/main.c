@@ -12,18 +12,27 @@
 
 #include "minishell.h"
 
-int main(void)
+int		main(void)
 {
+	extern char 	**environ;
+
+
 	char	*user_input;
+	t_env	*my_env;
 	int		run;
 
 	run = 1;
-	while (run)
-	{
-		prompt();
-		get_input(&user_input);
-		run = interpretor(user_input);
-		free(user_input);
-	}
+	/*if (setup(&my_env))
+	{*/
+		while (run)
+		{
+			prompt();
+			get_input(&user_input);
+			run = interpretor(user_input, &my_env);
+			free(user_input);
+		}
+	/*}
+	else
+		ft_putstr("Failure to launch.");*/
 	return (1);
 }

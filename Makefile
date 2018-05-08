@@ -21,7 +21,9 @@ CC = clang
 SRC_NAME = main.c\
 	input.c\
 	prompt.c\
-	interpretor.c
+	interpretor.c\
+	setup.c\
+	env.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
