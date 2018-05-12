@@ -24,10 +24,13 @@ typedef struct		s_env
 	char			*data;
 	struct s_env	*next;
 }					t_env;
-int		setup(t_env **my_env);
-void	prompt();
-void	get_input(char **user_input);
-int		interpretor(char *user_input, t_env **my_env);
-t_env	*get_env(void);
-char	**cp_env(void);
+
+int					setup(t_env *my_env);
+void				prompt(t_env *my_env);
+void				get_input(char **user_input);
+int					interpretor(char *user_input, t_env *my_env);
+t_env				*get_env(void);
+void				print_env(t_env *my_env);
+void				print_user(t_env *my_env);
+void				print_pwd(t_env *my_env);
 #endif

@@ -23,7 +23,8 @@ SRC_NAME = main.c\
 	prompt.c\
 	interpretor.c\
 	setup.c\
-	env.c
+	env.c\
+	print_env.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))

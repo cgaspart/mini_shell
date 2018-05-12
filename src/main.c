@@ -14,25 +14,23 @@
 
 int		main(void)
 {
-	extern char 	**environ;
-
-
 	char	*user_input;
 	t_env	*my_env;
 	int		run;
 
 	run = 1;
-	/*if (setup(&my_env))
-	{*/
+	my_env = get_env();
+	if (setup(my_env))
+	{
 		while (run)
 		{
-			prompt();
+			prompt(my_env);
 			get_input(&user_input);
-			run = interpretor(user_input, &my_env);
+			run = interpretor(user_input, my_env);
 			free(user_input);
 		}
-	/*}
+	}
 	else
-		ft_putstr("Failure to launch.");*/
+		ft_putstr("Failure to launch.");
 	return (1);
 }
