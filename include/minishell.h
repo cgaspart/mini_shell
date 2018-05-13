@@ -33,4 +33,5 @@ t_env				*get_env(void);
 void				print_env(t_env *my_env);
 void				print_user(t_env *my_env);
 void				print_pwd(t_env *my_env);
+void				free_env(t_env *my_env);
 #endif

@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   memory_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgaspart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/30 08:04:49 by cgaspart          #+#    #+#             */
-/*   Updated: 2018/04/30 08:26:06 by cgaspart         ###   ########.fr       */
+/*   Created: 2018/05/13 20:06:56 by cgaspart          #+#    #+#             */
+/*   Updated: 2018/05/13 20:06:57 by cgaspart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		main(void)
+void	free_env(t_env *my_env)
 {
-	char	*user_input;
-	t_env	*my_env;
-	int		run;
+	t_env *ptr;
 
-	run = 1;
-	my_env = get_env();
-	if (setup(my_env))
+	ptr = my_env;
+	while (my_env)
 	{
-		while (run)
-		{
-			prompt(my_env);
-			get_input(&user_input);
-			run = interpretor(user_input, my_env);
-			free(user_input);
-		}
-		free_env(my_env);
+		free(my_env->name);
+		free(my_env->data);
+		ptr = my_env->next;
+		free(my_env);
+		my_env = ptr;
 	}
-	else
-		ft_putstr("Failure to launch.");
-	return (1);
 }
