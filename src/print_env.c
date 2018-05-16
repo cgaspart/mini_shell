@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	print_env(t_env *my_env)
+void	print_env(void)
 {
 	t_env	*ptr;
 
@@ -27,36 +27,21 @@ void	print_env(t_env *my_env)
 	}
 }
 
-void	print_user(t_env *my_env)
+void	print_pwd(void)
 {
-	t_env *ptr;
-
-	ptr = my_env;
-	while (!ft_strstr(ptr->name, "USER"))
-		ptr = ptr->next;
-	ft_putstr(ptr->data);
-}
-
-void	print_pwd(t_env *my_env)
-{
-	char	*home_save;
-	t_env	*ptr;
+	char	*home;
+	char	*pwd;
 	int		i;
 
-	ptr = my_env;
-	while (!ft_strstr(ptr->name, "HOME"))
-		ptr = ptr->next;
-	home_save = ptr->data;
-	ptr = my_env;
-	while (!ft_strstr(ptr->name, "PWD"))
-		ptr = ptr->next;
-	i = ft_strlen(home_save);
-	if (!ft_strncmp(home_save, ptr->data, i))
+	home = find_env("HOME");
+	pwd = find_env("PWD");
+	i = ft_strlen(home);
+	if (!ft_strncmp(home, pwd, i))
 	{
 		ft_putchar('~');
-		home_save = &ptr->data[i];
-		ft_putstr(home_save);
+		home = &pwd[i];
+		ft_putstr(home);
 	}
 	else
-		ft_putstr(ptr->data);
+		ft_putstr(pwd);
 }

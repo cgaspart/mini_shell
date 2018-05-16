@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void	prompt(t_env *my_env)
+void	prompt()
 {
 	ft_putchar('[');
-	print_pwd(my_env);
+	print_pwd();
 	ft_putchar(']');
 	ft_putstr(" $> ");
 }

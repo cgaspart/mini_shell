@@ -16,7 +16,7 @@ OBJ_PATH = obj
 CPPFLAGS = -Iinclude
 LDFLAGS = -L./libft
 LDLIBS = -lft
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 CC = clang
 SRC_NAME = main.c\
 	input.c\
@@ -25,7 +25,8 @@ SRC_NAME = main.c\
 	setup.c\
 	env.c\
 	print_env.c\
-	memory_free.c
+	memory_free.c\
+	execute.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))

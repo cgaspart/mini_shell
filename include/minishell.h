@@ -17,6 +17,8 @@
 # include "../libft/includes/get_next_line.h"
 # include <unistd.h>
 # include <termios.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct		s_env
 {
@@ -25,13 +27,16 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-int					setup(t_env *my_env);
-void				prompt(t_env *my_env);
+t_env				*my_env;
+
+int					setup();
+void				prompt(void);
 void				get_input(char **user_input);
 int					interpretor(char *user_input, t_env *my_env);
 t_env				*get_env(void);
-void				print_env(t_env *my_env);
-void				print_user(t_env *my_env);
-void				print_pwd(t_env *my_env);
+char				*find_env(char *name);
+void				print_env(void);
+void				print_pwd(void);
 void				free_env(t_env *my_env);
+int					execute(char **command, t_env *my_env);
 #endif

@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+static void		system_test(char **command, t_env *my_env)
+{
+	if (!execute(command, my_env))
+	{
+		ft_putstr("minishell: command not found:");
+		ft_putstr(command[0]);
+	}
+}
+
 int		interpretor(char *user_input, t_env *my_env)
 {
 	char	**command;
@@ -20,7 +29,9 @@ int		interpretor(char *user_input, t_env *my_env)
 	if (!ft_strcmp(command[0], "exit"))
 		return (0);
 	if (!ft_strcmp(command[0], "env"))
-		print_env(my_env);
+		print_env();
+	else
+		system_test(command, my_env);
 	ft_free_tab(command);
 	return (1);
 }

@@ -12,77 +12,40 @@
 
 #include "minishell.h"
 
-static char		*get_var_name(char *str)
+static int		lst_len()
 {
-	char	*name;
+	t_env	*ptr;
 	int		i;
 
 	i = 0;
-	while (str[i] != *ft_strchr(str, '='))
-		i++;
-	name = malloc(sizeof(char) * i + 1);
-	i = 0;
-	while (str[i] != *ft_strchr(str, '='))
+	ptr = my_env;
+	while (ptr)
 	{
-		name[i] = str[i];
 		i++;
+		ptr = ptr->next;
 	}
-	name[i] = '\0';
-	return (name);
+	return(i);
 }
 
-static char		*get_var_data(char *str)
+char	*find_env(char *name)
 {
-	char	*data;
-	int		i;
-	int		j;
+	t_env *ptr;
 
-	i = 0;
-	j = 0;
-	while (str[i] != *ft_strchr(str, '='))
-		i++;
-	while (str[i + j] != '\0')
-		j++;
-	data = malloc(sizeof(char) * j + 1);
-	i++;
-	j = 0;
-	while (str[i + j] != '\0')
-	{
-		data[j] = str[i + j];
-		j++;
-	}
-	data[j] = '\0';
-	return (data);
+	ptr = my_env;
+	while (!ft_strstr(ptr->name, name) && ptr)
+		ptr = ptr->next;
+	return (ptr->data);
 }
 
-t_env			*lst_env(char **env)
+char	**get_env()
 {
-	t_env	*tmp;
-	t_env	*my_env;
-	int		i;
+	char	**res;
+	t_env	*ptr;
 
-	i = 0;
-	tmp = (t_env*)malloc(sizeof(t_env));
-	my_env = tmp;
-	while (env[i])
+	ptr = my_env;
+	res = malloc(sizeof(char*) * lst_len() + 1);
+	while (ptr)
 	{
-		tmp->name = get_var_name(env[i]);
-		tmp->data = get_var_data(env[i]);
-		if (env[i + 1] == NULL)
-			tmp->next = NULL;
-		else
-		{
-			tmp->next = (t_env*)malloc(sizeof(t_env));
-			tmp = tmp->next;
-		}
-		i++;
+
 	}
-	return (my_env);
-}
-
-t_env			*get_env(void)
-{
-	extern char		**environ;
-
-	return (lst_env(environ));
 }
