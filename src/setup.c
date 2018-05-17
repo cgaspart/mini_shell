@@ -56,7 +56,11 @@ static void		lst_env(void)
 
 int				setup(void)
 {
+	char **res;
+
 	lst_env();
+	res = get_env();
+	//ft_puttab(res);
 	if (my_env != NULL)
 		return (1);
 	else

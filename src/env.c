@@ -40,12 +40,25 @@ char	*find_env(char *name)
 char	**get_env()
 {
 	char	**res;
+	char	*tmp;
 	t_env	*ptr;
+	int		i;
 
 	ptr = my_env;
 	res = malloc(sizeof(char*) * lst_len() + 1);
+	i = 0;
 	while (ptr)
 	{
-
+		tmp = ft_strjoin(ptr->name, "=");
+		tmp = ft_str_fjoin(tmp, ptr->data, 1);
+		res[i] = ft_strdup(tmp);
+		ptr = ptr->next;
+		free(tmp);
+		//ft_putstr(res[i]);
+		//ft_putchar('\n');
+		i++;
 	}
+	ft_puttab(res);
+	res[i] = NULL;
+	return (res);
 }
