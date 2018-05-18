@@ -28,6 +28,7 @@ typedef struct		s_env
 }					t_env;
 
 t_env				*my_env;
+char				**env;
 
 int					setup();
 void				prompt(void);

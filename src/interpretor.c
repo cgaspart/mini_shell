@@ -28,7 +28,7 @@ int		interpretor(char *user_input, t_env *my_env)
 	command = str_to_wordtab(user_input);
 	if (!ft_strcmp(command[0], "exit"))
 		return (0);
-	if (!ft_strcmp(command[0], "env"))
+	else if (!ft_strcmp(command[0], "env"))
 		print_env();
 	else
 		system_test(command, my_env);

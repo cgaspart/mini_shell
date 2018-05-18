@@ -50,15 +50,10 @@ char	**get_env()
 	while (ptr)
 	{
 		tmp = ft_strjoin(ptr->name, "=");
-		tmp = ft_str_fjoin(tmp, ptr->data, 1);
-		res[i] = ft_strdup(tmp);
+		res[i] = ft_str_fjoin(tmp, ptr->data, 1);
 		ptr = ptr->next;
-		free(tmp);
-		//ft_putstr(res[i]);
-		//ft_putchar('\n');
 		i++;
 	}
-	ft_puttab(res);
 	res[i] = NULL;
 	return (res);
 }

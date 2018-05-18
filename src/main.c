@@ -24,7 +24,8 @@ int		main(void)
 		{
 			prompt();
 			get_input(&user_input);
-			run = interpretor(user_input, my_env);
+			if (user_input[0])
+				run = interpretor(user_input, my_env);
 			free(user_input);
 		}
 		free_env(my_env);

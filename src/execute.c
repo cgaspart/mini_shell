@@ -43,7 +43,7 @@ int		execute(char **command, t_env *my_env)
 	father = fork();
 	if (father == 0)
 	{
-		while (execve(path[i], &command[1], NULL) == -1)
+		while (execve(path[i], command, env) == -1 && path[i])
 			i++;
 	}
 	if (father > 0)
@@ -51,3 +51,7 @@ int		execute(char **command, t_env *my_env)
 	ft_free_tab(path);
 	return (1);
 }
+
+/* Need to parse arg
+path need to be a sting
+I will use access to check the good path
