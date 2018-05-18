@@ -55,3 +55,9 @@ int		execute(char **command, t_env *my_env)
 /* Need to parse arg
 path need to be a sting
 I will use access to check the good path
+
+if (access("./a.out", X_OK) == 0)
+	printf("You have permission");
+else
+	printf("You dont have any permission. Get out !");
+*/
