@@ -15,11 +15,7 @@
 static void		system_test(char **command)
 {
 	if (!execute(command))
-	{
-		ft_putstr("minishell: command not found: ");
-		ft_putstr(command[0]);
-		ft_putchar('\n');
-	}
+		error("minishell: command not found: ", command[0]);
 }
 
 int		interpretor(char *user_input)
@@ -31,6 +27,8 @@ int		interpretor(char *user_input)
 		return (0);
 	else if (!ft_strcmp(command[0], "env"))
 		print_env();
+	else if (!ft_strcmp(command[0], "cd"))
+		my_cd(command);
 	else
 		system_test(command);
 	ft_free_tab(command);

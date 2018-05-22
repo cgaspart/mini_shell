@@ -110,5 +110,5 @@ int					ft_addstr_b(t_buffer *my_buffer, char *str);
 void				rm_lastpath_b(t_buffer *path);
 void				ft_rm_b_path(t_buffer *my_buffer);
 int					get_nbr_word(char *str);
-char				**str_to_wordtab(char *str);
+char				ft_type(char *dirname);
 #endif

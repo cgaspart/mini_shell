@@ -40,4 +40,6 @@ void				print_env(void);
 void				print_pwd(void);
 void				free_env(t_env *my_env);
 int					execute(char **command);
+void				my_cd(char **command);
+void				error(char *error_mess, char *this_command);
 #endif
