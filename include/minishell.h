@@ -33,11 +33,11 @@ char				**env;
 int					setup();
 void				prompt(void);
 void				get_input(char **user_input);
-int					interpretor(char *user_input, t_env *my_env);
+int					interpretor(char *user_input);
 char				**get_env(void);
 char				*find_env(char *name);
 void				print_env(void);
 void				print_pwd(void);
 void				free_env(t_env *my_env);
-int					execute(char **command, t_env *my_env);
+int					execute(char **command);
 #endif

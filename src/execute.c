@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char		**get_path(char **command, t_env *my_env)
+static char		**get_path(char **command)
 {
 	t_env	*ptr;
 	char	**path;
@@ -32,32 +32,41 @@ static char		**get_path(char **command, t_env *my_env)
 	return (path);
 }
 
-int		execute(char **command, t_env *my_env)
+static char		*get_exec(char **command)
 {
+	char	*res;
 	char	**path;
 	int		i;
-	pid_t	father;
 
 	i = 0;
-	path = get_path(command,my_env);
-	father = fork();
-	if (father == 0)
+	path = get_path(command);
+	while (path[i])
 	{
-		while (execve(path[i], command, env) == -1 && path[i])
+		if (access(path[i], X_OK) == 0)
+		{
+			res = ft_strdup(path[i]);
+			ft_free_tab(path);
+			return (res);
+		}
+		else
 			i++;
 	}
-	if (father > 0)
-		wait(&father);
-	ft_free_tab(path);
-	return (1);
+	return (NULL);
 }
 
-/* Need to parse arg
-path need to be a sting
-I will use access to check the good path
+int				execute(char **command)
+{
+	char	*path;
+	pid_t	father;
 
-if (access("./a.out", X_OK) == 0)
-	printf("You have permission");
-else
-	printf("You dont have any permission. Get out !");
-*/
+	path = get_exec(command);
+	if (path == NULL)
+		return (0);
+	father = fork();
+	if (father == 0)
+		execve(path, command, env);
+	if (father > 0)
+		wait(&father);
+	free(path);
+	return (1);
+}

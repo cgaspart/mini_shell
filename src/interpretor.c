@@ -12,26 +12,27 @@
 
 #include "minishell.h"
 
-static void		system_test(char **command, t_env *my_env)
+static void		system_test(char **command)
 {
-	if (!execute(command, my_env))
+	if (!execute(command))
 	{
-		ft_putstr("minishell: command not found:");
+		ft_putstr("minishell: command not found: ");
 		ft_putstr(command[0]);
+		ft_putchar('\n');
 	}
 }
 
-int		interpretor(char *user_input, t_env *my_env)
+int		interpretor(char *user_input)
 {
 	char	**command;
 
-	command = str_to_wordtab(user_input);
+	command = ft_strsplit(user_input, ' ');
 	if (!ft_strcmp(command[0], "exit"))
 		return (0);
 	else if (!ft_strcmp(command[0], "env"))
 		print_env();
 	else
-		system_test(command, my_env);
+		system_test(command);
 	ft_free_tab(command);
 	return (1);
 }
