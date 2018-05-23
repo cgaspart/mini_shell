@@ -40,7 +40,7 @@ static int		cd_error(int error_id, char **command)
 		error("Is not a directory: ", command[1]);
 		return (1);
 	}
-	else
+	else if (access(command[1], R_OK) != 0)
 	{
 		error("You don't have right: ", command[1]);
 		return (1);
@@ -54,7 +54,7 @@ static char		*cd_parser(char **command)
 		return (find_env("HOME"));
 	if (ft_strstr(command[1], "-"))
 		return (find_env("OLDPWD"));
-	if (!cd_error(ft_type(command[1]), command) && !access(command[1], R_OK))
+	if (!cd_error(ft_type(command[1]), command))
 		return (command[1]);
 	return (NULL);
 }
@@ -68,4 +68,5 @@ void			my_cd(char **command)
 		return ;
 	update_pwd(path);
 	chdir(path);
+	//use getcwd to update path update after chdir
 }
