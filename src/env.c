@@ -12,6 +12,59 @@
 
 #include "minishell.h"
 
+void	set_env(char *name, char *data)
+{
+	t_env	*tmp;
+
+	tmp = my_env;
+	if (name == NULL || data == NULL)
+	{
+		ft_putstr("usage: setenv NAME DATA\n");
+		return ;
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = (t_env*)malloc(sizeof(t_env));
+	tmp = tmp->next;
+	tmp->name = ft_strdup(name);
+	tmp->data = ft_strdup(data);
+	tmp->next = NULL;
+}
+
+void	unset_env(char *name)
+{
+	t_env	*ptr;
+	t_env	*tmp;
+
+	ptr = my_env;
+	if (name == NULL)
+	{
+		ft_putstr("unsetenv: not enough arguments");
+		return ;
+	}
+	while (!ft_strstr(ptr->next->name, name) && ptr)
+		ptr = ptr->next;
+	if (ptr == NULL)
+		return ;
+	tmp = ptr->next->next;
+	free(ptr->next->name);
+	free(ptr->next->data);
+	free(ptr->next);
+	ptr->next = tmp;
+}
+
+char	*find_env(char *name)
+{
+	t_env *ptr;
+
+	ptr = my_env;
+	while (!ft_strstr(ptr->name, name) && ptr->next)
+		ptr = ptr->next;
+	if (ft_strcmp(name, ptr->name))
+		return (NULL);
+	return (ptr->data);
+}
+
 static int		lst_len()
 {
 	t_env	*ptr;
@@ -25,16 +78,6 @@ static int		lst_len()
 		ptr = ptr->next;
 	}
 	return(i);
-}
-
-char	*find_env(char *name)
-{
-	t_env *ptr;
-
-	ptr = my_env;
-	while (!ft_strstr(ptr->name, name) && ptr)
-		ptr = ptr->next;
-	return (ptr->data);
 }
 
 char	**get_env()

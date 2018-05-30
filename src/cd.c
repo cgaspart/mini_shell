@@ -12,20 +12,23 @@
 
 #include "minishell.h"
 
-void			update_pwd(char *path)
+void			update_pwd(void)
 {
+	char	cwd[256];
 	t_env	*ptr;
-	char	*pwd;
+	char	*temp;
 
 	ptr = my_env;
 	while (!ft_strstr(ptr->name, "PWD") && ptr)
 		ptr = ptr->next;
-	pwd = ptr->data;
-	ptr->data = path;
+	temp = ft_strdup(ptr->data);
+	free(ptr->data);
+	getcwd(cwd, sizeof(cwd));
+	ptr->data = ft_strdup(cwd);
 	while (!ft_strstr(ptr->name, "OLDPWD") && ptr)
 		ptr = ptr->next;
 	free(ptr->data);
-	ptr->data = pwd;
+ 	ptr->data = temp;
 }
 
 static int		cd_error(int error_id, char **command)
@@ -66,7 +69,7 @@ void			my_cd(char **command)
 	path = cd_parser(command);
 	if (path == NULL)
 		return ;
-	update_pwd(path);
 	chdir(path);
+	update_pwd();
 	//use getcwd to update path update after chdir
 }

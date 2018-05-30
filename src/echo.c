@@ -1,46 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgaspart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/11 19:48:05 by cgaspart          #+#    #+#             */
-/*   Updated: 2018/05/11 19:48:07 by cgaspart         ###   ########.fr       */
+/*   Created: 2018/05/30 14:56:18 by cgaspart          #+#    #+#             */
+/*   Updated: 2018/05/30 14:56:20 by cgaspart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_env(void)
+void	my_echo(char **command)
 {
-	t_env	*ptr;
+	int i;
 
-	ptr = my_env;
-	while (ptr)
+	i = 1;
+	while (command[i])
 	{
-		ft_putstr(ptr->name);
-		ft_putchar('=');
-		ft_putstr(ptr->data);
+		if (*command[i] == '$' && find_env(ft_strchr(command[i], '$') + 1))
+			ft_putstr(find_env(ft_strchr(command[i], '$') + 1));
+		else if (*command[i] != '$')
+			ft_putstr(command[i]);
 		ft_putchar('\n');
-		ptr = ptr->next;
+		i++;
 	}
-}
-
-void	print_pwd(void)
-{
-	char	*home;
-	char	*pwd;
-	int		i;
-
-	home = find_env("HOME");
-	pwd = find_env("PWD");
-	i = ft_strlen(home);
-	if (!ft_strncmp(home, pwd, i))
-	{
-		ft_putchar('~');
-		ft_putstr(&pwd[i]);
-	}
-	else
-		ft_putstr(pwd);
 }

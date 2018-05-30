@@ -58,7 +58,9 @@ int				execute(char **command)
 {
 	char	*path;
 	pid_t	father;
+	char	**env;
 
+	env = get_env();
 	path = get_exec(command);
 	if (path == NULL)
 		return (0);
@@ -68,5 +70,6 @@ int				execute(char **command)
 	if (father > 0)
 		wait(&father);
 	free(path);
+	ft_free_tab(env);
 	return (1);
 }

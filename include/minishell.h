@@ -28,7 +28,6 @@ typedef struct		s_env
 }					t_env;
 
 t_env				*my_env;
-char				**env;
 
 int					setup();
 void				prompt(void);
@@ -38,8 +37,11 @@ char				**get_env(void);
 char				*find_env(char *name);
 void				print_env(void);
 void				print_pwd(void);
-void				free_env(t_env *my_env);
+void				free_env(void);
 int					execute(char **command);
 void				my_cd(char **command);
 void				error(char *error_mess, char *this_command);
+void				set_env(char *name, char *data);
+void				unset_env(char *name);
+void				my_echo(char **command);
 #endif

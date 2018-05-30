@@ -24,11 +24,20 @@ int		interpretor(char *user_input)
 
 	command = ft_strsplit(user_input, ' ');
 	if (!ft_strcmp(command[0], "exit"))
+	{
+		ft_free_tab(command);
 		return (0);
+	}
 	else if (!ft_strcmp(command[0], "env"))
 		print_env();
 	else if (!ft_strcmp(command[0], "cd"))
 		my_cd(command);
+	else if (!ft_strcmp(command[0], "setenv"))
+		set_env(command[1], command[2]);
+	else if (!ft_strcmp(command[0], "unsetenv"))
+		unset_env(command[1]);
+	else if (!ft_strcmp(command[0], "echo"))
+		my_echo(command);
 	else
 		system_test(command);
 	ft_free_tab(command);

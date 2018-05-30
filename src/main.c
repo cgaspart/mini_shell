@@ -28,7 +28,7 @@ int		main(void)
 				run = interpretor(user_input);
 			free(user_input);
 		}
-		free_env(my_env);
+		free_env();
 	}
 	else
 		ft_putstr("Failure to launch.");

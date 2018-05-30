@@ -28,7 +28,8 @@ SRC_NAME = main.c\
 	memory_free.c\
 	execute.c\
 	cd.c\
-	error.c
+	error.c\
+	echo.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))

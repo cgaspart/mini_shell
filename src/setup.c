@@ -57,7 +57,6 @@ static void		lst_env(void)
 int				setup(void)
 {
 	lst_env();
-	env = get_env();
 	if (my_env != NULL)
 		return (1);
 	else
