@@ -102,9 +102,9 @@ int				get_next_line(const int fd, char **line)
 		if (ft_strchr(buff, '\n'))
 			break ;
 	}
-	free(buff);
 	if (glist->here >= (int)ft_strlen(glist->content))
 		return (0);
+	free(buff);
 	*line = ft_endl(glist);
 	return (1);
 }

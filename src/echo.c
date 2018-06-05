@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	my_echo(char **command)
+void			my_echo(char **command)
 {
 	int i;
 

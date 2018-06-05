@@ -18,7 +18,7 @@ void			update_pwd(void)
 	t_env	*ptr;
 	char	*temp;
 
-	ptr = my_env;
+	ptr = g_my_env;
 	while (!ft_strstr(ptr->name, "PWD") && ptr)
 		ptr = ptr->next;
 	temp = ft_strdup(ptr->data);
@@ -28,7 +28,7 @@ void			update_pwd(void)
 	while (!ft_strstr(ptr->name, "OLDPWD") && ptr)
 		ptr = ptr->next;
 	free(ptr->data);
- 	ptr->data = temp;
+	ptr->data = temp;
 }
 
 static int		cd_error(int error_id, char **command)
@@ -71,5 +71,4 @@ void			my_cd(char **command)
 		return ;
 	chdir(path);
 	update_pwd();
-	//use getcwd to update path update after chdir
 }

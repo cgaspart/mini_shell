@@ -16,7 +16,7 @@ void	print_env(void)
 {
 	t_env	*ptr;
 
-	ptr = my_env;
+	ptr = g_my_env;
 	while (ptr)
 	{
 		ft_putstr(ptr->name);

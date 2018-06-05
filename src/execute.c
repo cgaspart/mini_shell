@@ -14,15 +14,15 @@
 
 static char		**get_path(char **command)
 {
-	t_env	*ptr;
+	char	*tmp;
 	char	**path;
 	int		i;
 
 	i = 0;
-	ptr = my_env;
-	while (!ft_strstr(ptr->name, "PATH"))
-		ptr = ptr->next;
-	path = ft_strsplit(ptr->data, ':');
+	tmp = find_env("PATH");
+	if (tmp == NULL)
+		return (NULL);
+	path = ft_strsplit(tmp, ':');
 	while (path[i])
 	{
 		path[i] = ft_str_fjoin(path[i], "/", 1);
@@ -39,7 +39,11 @@ static char		*get_exec(char **command)
 	int		i;
 
 	i = 0;
+	if (ft_strchr(command[0], '/') && (access(command[0], X_OK) == 0))
+		return (ft_strdup(command[0]));
 	path = get_path(command);
+	if (path == NULL)
+		return (NULL);
 	while (path[i])
 	{
 		if (access(path[i], X_OK) == 0)
@@ -48,8 +52,7 @@ static char		*get_exec(char **command)
 			ft_free_tab(path);
 			return (res);
 		}
-		else
-			i++;
+		i++;
 	}
 	return (NULL);
 }

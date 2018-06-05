@@ -16,7 +16,7 @@ void	set_env(char *name, char *data)
 {
 	t_env	*tmp;
 
-	tmp = my_env;
+	tmp = g_my_env;
 	if (name == NULL || data == NULL)
 	{
 		ft_putstr("usage: setenv NAME DATA\n");
@@ -31,19 +31,20 @@ void	set_env(char *name, char *data)
 	tmp->next = NULL;
 }
 
-void	unset_env(char *name)
+void			unset_env(char *name)
 {
 	t_env	*ptr;
 	t_env	*tmp;
 
-	ptr = my_env;
+	ptr = g_my_env;
 	if (name == NULL)
 	{
 		ft_putstr("unsetenv: not enough arguments");
 		return ;
 	}
-	while (!ft_strstr(ptr->next->name, name) && ptr)
+	while (!ft_strstr(ptr->next->name, name) && ptr->next->next)
 		ptr = ptr->next;
+	ft_putstr("YO");
 	if (ptr == NULL)
 		return ;
 	tmp = ptr->next->next;
@@ -53,11 +54,11 @@ void	unset_env(char *name)
 	ptr->next = tmp;
 }
 
-char	*find_env(char *name)
+char			*find_env(char *name)
 {
 	t_env *ptr;
 
-	ptr = my_env;
+	ptr = g_my_env;
 	while (!ft_strstr(ptr->name, name) && ptr->next)
 		ptr = ptr->next;
 	if (ft_strcmp(name, ptr->name))
@@ -65,29 +66,29 @@ char	*find_env(char *name)
 	return (ptr->data);
 }
 
-static int		lst_len()
+static int		lst_len(void)
 {
 	t_env	*ptr;
 	int		i;
 
 	i = 0;
-	ptr = my_env;
+	ptr = g_my_env;
 	while (ptr)
 	{
 		i++;
 		ptr = ptr->next;
 	}
-	return(i);
+	return (i);
 }
 
-char	**get_env()
+char			**get_env(void)
 {
 	char	**res;
 	char	*tmp;
 	t_env	*ptr;
 	int		i;
 
-	ptr = my_env;
+	ptr = g_my_env;
 	res = malloc(sizeof(char*) * lst_len() + 1);
 	i = 0;
 	while (ptr)

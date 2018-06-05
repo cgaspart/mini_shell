@@ -18,7 +18,7 @@ static void		system_test(char **command)
 		error("minishell: command not found: ", command[0]);
 }
 
-int		interpretor(char *user_input)
+int				interpretor(char *user_input)
 {
 	char	**command;
 

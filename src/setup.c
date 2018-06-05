@@ -30,15 +30,15 @@ static char		*get_var_data(char *str)
 	return (data);
 }
 
-static void		lst_env(void)
+static void		lst_env(char **environ)
 {
-	extern char		**environ;
+	//extern char		**environ;
 	t_env			*tmp;
 	int				i;
 
 	i = 0;
 	tmp = (t_env*)malloc(sizeof(t_env));
-	my_env = tmp;
+	g_my_env = tmp;
 	while (environ[i])
 	{
 		tmp->name = get_var_name(environ[i]);
@@ -54,10 +54,10 @@ static void		lst_env(void)
 	}
 }
 
-int				setup(void)
+int				setup(char **environ)
 {
-	lst_env();
-	if (my_env != NULL)
+	lst_env(environ);
+	if (g_my_env != NULL)
 		return (1);
 	else
 		return (0);

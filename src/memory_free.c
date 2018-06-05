@@ -16,13 +16,13 @@ void	free_env(void)
 {
 	t_env *ptr;
 
-	ptr = my_env;
-	while (my_env)
+	ptr = g_my_env;
+	while (g_my_env)
 	{
-		free(my_env->name);
-		free(my_env->data);
-		ptr = my_env->next;
-		free(my_env);
-		my_env = ptr;
+		free(g_my_env->name);
+		free(g_my_env->data);
+		ptr = g_my_env->next;
+		free(g_my_env);
+		g_my_env = ptr;
 	}
 }

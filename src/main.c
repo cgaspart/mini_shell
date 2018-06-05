@@ -12,13 +12,14 @@
 
 #include "minishell.h"
 
-int		main(void)
+int		main(int argc, char **argv, char **environ)
 {
 	char	*user_input;
 	int		run;
 
-	run = 1;
-	if (setup())
+	run = argc;
+	argv = NULL;
+	if (setup(environ))
 	{
 		while (run)
 		{

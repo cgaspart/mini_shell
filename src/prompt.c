@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	prompt()
+void	prompt(void)
 {
 	ft_putchar('[');
 	print_pwd();

@@ -27,9 +27,9 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-t_env				*my_env;
+t_env				*g_my_env;
 
-int					setup();
+int					setup(char **environ);
 void				prompt(void);
 void				get_input(char **user_input);
 int					interpretor(char *user_input);
