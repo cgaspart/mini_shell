@@ -32,7 +32,6 @@ static char		*get_var_data(char *str)
 
 static void		lst_env(char **environ)
 {
-	//extern char		**environ;
 	t_env			*tmp;
 	int				i;
 

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	set_env(char *name, char *data)
+void			set_env(char *name, char *data)
 {
 	t_env	*tmp;
 
