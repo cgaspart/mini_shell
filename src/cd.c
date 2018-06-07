@@ -38,7 +38,7 @@ static int		cd_error(int error_id, char **command)
 		error("Invalid path: ", command[1]);
 		return (1);
 	}
-	else if (error_id != 'd')
+	else if (error_id != 'd' && error_id != 'l')
 	{
 		error("Is not a directory: ", command[1]);
 		return (1);

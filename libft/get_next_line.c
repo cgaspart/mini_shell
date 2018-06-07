@@ -11,100 +11,78 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
-static void		my_lstadd(t_data **alst, t_data *new)
+static t_slot	*get_slot(t_slot *first, int fd)
 {
-	new->next = (*alst);
-	(*alst) = new;
-}
+	t_slot	*slot;
 
-char			*ft_strfjoin(char *s1, char const *s2)
-{
-	char	*fraiche;
-	int		len;
-
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	len = (ft_strlen(s1) + ft_strlen(s2) + 1);
-	fraiche = (char *)malloc(sizeof(char) * len);
-	if (fraiche == NULL)
-		return (NULL);
-	ft_strcpy(fraiche, s1);
-	ft_strcpy(fraiche + ft_strlen(s1), s2);
-	free(s1);
-	s1 = NULL;
-	return (fraiche);
-}
-
-static t_data	*ft_getlst(const int fd, t_data **data)
-{
-	t_data	*ptrdata;
-	t_data	*tmp;
-
-	ptrdata = *data;
-	while (ptrdata)
+	slot = first;
+	while (slot && slot->fd != fd)
+		slot = slot->next;
+	if (!slot)
 	{
-		if ((int)ptrdata->content_size == fd)
-			return (ptrdata);
-		ptrdata = ptrdata->next;
+		if (!(slot = malloc(sizeof(t_slot))) ||
+		!(slot->save = ft_strnew(0)))
+			return (0);
+		slot->fd = fd;
+		slot->next = NULL;
+		while (first && first->next)
+			first = first->next;
+		if (first)
+			first->next = slot;
 	}
-	tmp = (t_data*)malloc(sizeof(t_data));
-	tmp->content = NULL;
-	tmp->content_size = fd;
-	tmp->here = 0;
-	ptrdata = tmp;
-	my_lstadd(data, ptrdata);
-	return (ptrdata);
+	return (slot);
 }
 
-static char		*ft_endl(t_data *glist)
+static int		process_slot(t_slot *slot, char **line)
 {
-	int		i;
-	char	*buffer;
-	char	*res;
+	char	*tmp;
+	char	*new;
 
-	i = 0;
-	buffer = ft_strdup((char*)glist->content);
-	while (buffer[glist->here + i] != '\n' && buffer[glist->here + i] != '\0')
-		i++;
-	res = malloc(sizeof(char) * i + 1);
-	i = 0;
-	while (buffer[glist->here + i] != '\n' && buffer[glist->here + i] != '\0')
+	if (!(tmp = ft_strdup(slot->save)))
+		return (-1);
+	free(slot->save);
+	if (*tmp == '\n')
 	{
-		res[i] = buffer[glist->here + i];
-		i++;
+		if (!(slot->save = ft_strdup(tmp + 1)) ||
+		!(*line = ft_strnew(0)))
+			return (-1);
+		free(tmp);
+		return (1);
 	}
-	glist->here = glist->here + i + 1;
-	res[i] = '\0';
-	free(buffer);
-	return (res);
+	if (!(slot->save = ft_strchr(tmp, '\n') ?
+	ft_strdup(ft_strchr(tmp, '\n') + 1) : ft_strnew(0)))
+		return (-1);
+	if (ft_strchr(tmp, '\n'))
+		*ft_strchr(tmp, '\n') = '\0';
+	if (!(new = *tmp ? tmp : ft_strnew(0)))
+		return (-1);
+	*line = new;
+	if (new != tmp)
+		free(tmp);
+	return (*new ? 1 : 0);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static t_data	*data;
-	t_data			*glist;
-	char			*buff;
-	int				len;
+	static t_slot	*first;
+	t_slot			*slot;
+	int				rd;
+	char			buff[BUFF_SIZE + 1];
+	char			*tmp;
 
-	buff = malloc(sizeof(char) * BUFF_SIZE + 1);
-	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0)
+	if (!line || !(slot = get_slot(first, fd)))
 		return (-1);
-	glist = ft_getlst(fd, &data);
-	while ((len = read(fd, buff, BUFF_SIZE)) > 0)
+	first = first ? first : slot;
+	while ((rd = read(fd, buff, BUFF_SIZE)) && rd != -1)
 	{
-		buff[len] = '\0';
-		if (glist->content == NULL)
-			glist->content = ft_strrealloc((char*)glist->content, BUFF_SIZE);
-		else
-			glist->content = ft_strrealloc((char*)glist->content, len);
-		glist->content = ft_strfjoin((char*)glist->content, buff);
-		if (ft_strchr(buff, '\n'))
-			break ;
+		buff[rd] = '\0';
+		tmp = ft_strjoin(slot->save, buff);
+		free(slot->save);
+		slot->save = tmp;
+		if (ft_strchr(slot->save, '\n'))
+			return (process_slot(slot, line));
 	}
-	if (glist->here >= (int)ft_strlen(glist->content))
-		return (0);
-	free(buff);
-	*line = ft_endl(glist);
-	return (1);
+	return (rd == -1 ? -1 : process_slot(slot, line));
 }

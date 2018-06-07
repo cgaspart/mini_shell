@@ -23,11 +23,12 @@ int		main(int argc, char **argv, char **environ)
 	{
 		while (run)
 		{
-			prompt();
 			get_input(&user_input);
-			if (user_input[0])
+			if (user_input != NULL && user_input[0])
+			{
 				run = interpretor(user_input);
-			free(user_input);
+				free(user_input);
+			}
 		}
 		free_env();
 	}

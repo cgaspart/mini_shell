@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-void	get_input(char **user_input)
+void			get_input(char **user_input)
 {
+	prompt();
 	get_next_line(0, user_input);
 }
