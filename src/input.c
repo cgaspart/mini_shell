@@ -12,6 +12,14 @@
 
 #include "minishell.h"
 
+static void		prompt(void)
+{
+	ft_putchar('[');
+	print_pwd();
+	ft_putchar(']');
+	ft_putstr(" $> ");
+}
+
 void			get_input(char **user_input)
 {
 	prompt();

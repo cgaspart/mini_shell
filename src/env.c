@@ -44,7 +44,6 @@ void			unset_env(char *name)
 	}
 	while (!ft_strstr(ptr->next->name, name) && ptr->next->next)
 		ptr = ptr->next;
-	ft_putstr("YO");
 	if (ptr == NULL)
 		return ;
 	tmp = ptr->next->next;

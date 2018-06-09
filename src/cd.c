@@ -19,13 +19,13 @@ void			update_pwd(void)
 	char	*temp;
 
 	ptr = g_my_env;
-	while (!ft_strstr(ptr->name, "PWD") && ptr)
+	while (!ft_strstr(ptr->name, "PWD") && ptr->next)
 		ptr = ptr->next;
 	temp = ft_strdup(ptr->data);
 	free(ptr->data);
 	getcwd(cwd, sizeof(cwd));
 	ptr->data = ft_strdup(cwd);
-	while (!ft_strstr(ptr->name, "OLDPWD") && ptr)
+	while (!ft_strstr(ptr->name, "OLDPWD") && ptr->next)
 		ptr = ptr->next;
 	free(ptr->data);
 	ptr->data = temp;

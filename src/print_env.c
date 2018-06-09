@@ -35,6 +35,8 @@ void	print_pwd(void)
 
 	home = find_env("HOME");
 	pwd = find_env("PWD");
+	if (pwd == NULL || home == NULL)
+		return ;
 	i = ft_strlen(home);
 	if (!ft_strncmp(home, pwd, i))
 	{

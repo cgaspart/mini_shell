@@ -30,7 +30,6 @@ typedef struct		s_env
 t_env				*g_my_env;
 
 int					setup(char **environ);
-void				prompt(void);
 void				get_input(char **user_input);
 int					interpretor(char *user_input);
 char				**get_env(void);

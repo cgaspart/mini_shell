@@ -20,7 +20,6 @@ CFLAGS = -Wall -Wextra -Werror
 CC = clang
 SRC_NAME = main.c\
 	input.c\
-	prompt.c\
 	interpretor.c\
 	setup.c\
 	env.c\

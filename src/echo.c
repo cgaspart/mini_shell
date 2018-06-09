@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+static void		clean_quote(char *this)
+{
+	while (*this)
+	{
+		if (*this != '"')
+			ft_putchar(*this);
+		this++;
+	}
+}
+
 void			my_echo(char **command)
 {
 	int i;
@@ -21,8 +31,10 @@ void			my_echo(char **command)
 	{
 		if (*command[i] == '$' && find_env(ft_strchr(command[i], '$') + 1))
 			ft_putstr(find_env(ft_strchr(command[i], '$') + 1));
-		else if (*command[i] != '$')
+		else if (*command[i] != '$' && !ft_strchr(command[i], '"'))
 			ft_putstr(command[i]);
+		else if (*command[i] != '$')
+			clean_quote(command[i]);
 		ft_putchar('\n');
 		i++;
 	}

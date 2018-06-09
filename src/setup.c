@@ -55,6 +55,8 @@ static void		lst_env(char **environ)
 
 int				setup(char **environ)
 {
+	if (environ == NULL)
+		return (0);
 	lst_env(environ);
 	if (g_my_env != NULL)
 		return (1);
