@@ -42,9 +42,9 @@ void			unset_env(char *name)
 		ft_putstr("unsetenv: not enough arguments");
 		return ;
 	}
-	while (!ft_strstr(ptr->next->name, name) && ptr->next->next)
+	while (ptr->next && !ft_strstr(ptr->next->name, name))
 		ptr = ptr->next;
-	if (ptr == NULL)
+	if (ptr->next == NULL)
 		return ;
 	tmp = ptr->next->next;
 	free(ptr->next->name);

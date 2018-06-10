@@ -18,17 +18,9 @@ static void		system_test(char **command)
 		error("minishell: command not found: ", command[0]);
 }
 
-int				interpretor(char *user_input)
+static void		builtins(char **command)
 {
-	char	**command;
-
-	command = ft_strsplit(user_input, ' ');
-	if (!ft_strcmp(command[0], "exit"))
-	{
-		ft_free_tab(command);
-		return (0);
-	}
-	else if (!ft_strcmp(command[0], "env"))
+	if (!ft_strcmp(command[0], "env"))
 		print_env();
 	else if (!ft_strcmp(command[0], "cd"))
 		my_cd(command);
@@ -40,6 +32,25 @@ int				interpretor(char *user_input)
 		my_echo(command);
 	else
 		system_test(command);
+}
+
+int				interpretor(char *user_input)
+{
+	char	**command;
+
+	command = ft_split_whitespaces(user_input);
+	if (command[0] == NULL)
+	{
+		ft_putstr("YO");
+		ft_free_tab(command);
+		return (1);
+	}
+	if (!ft_strcmp(command[0], "exit"))
+	{
+		ft_free_tab(command);
+		return (0);
+	}
+	builtins(command);
 	ft_free_tab(command);
 	return (1);
 }
