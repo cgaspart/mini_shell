@@ -53,10 +53,18 @@ static int		cd_error(int error_id, char **command)
 
 static char		*cd_parser(char **command)
 {
-	if (command[1] == NULL)
+	char	*tmp;
+
+	if (command[1] == NULL || (ft_strstr(command[1], "~") && !command[1][1]))
 		return (find_env("HOME"));
-	if (ft_strstr(command[1], "-"))
+	if (ft_strstr(command[1], "-") && !command[1][1])
 		return (find_env("OLDPWD"));
+	if (ft_strstr(command[1], "~") && command[1][1])
+	{
+		tmp = command[1];
+		free(command[1]);
+		command[1] = ft_strjoin(find_env("HOME"), ft_strchr(tmp, '~') + 1);
+	}
 	if (!cd_error(ft_type(command[1]), command))
 		return (command[1]);
 	return (NULL);
