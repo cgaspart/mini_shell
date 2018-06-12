@@ -55,11 +55,16 @@ static void		lst_env(char **environ)
 
 int				setup(char **environ)
 {
+	char *tmp;
 	if (environ == NULL)
 		return (0);
 	lst_env(environ);
 	if (g_my_env != NULL)
+	{
+		tmp = find_env("SHLVL");
+		*tmp = *tmp + 1;
 		return (1);
+	}
 	else
 		return (0);
 }

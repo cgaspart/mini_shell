@@ -38,10 +38,11 @@ int				interpretor(char *user_input)
 {
 	char	**command;
 
+	if (user_input == NULL)
+		return (1);
 	command = ft_split_whitespaces(user_input);
 	if (command[0] == NULL)
 	{
-		ft_putstr("YO");
 		ft_free_tab(command);
 		return (1);
 	}

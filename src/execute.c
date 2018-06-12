@@ -54,6 +54,7 @@ static char		*get_exec(char **command)
 		}
 		i++;
 	}
+	ft_free_tab(path);
 	return (NULL);
 }
 
@@ -63,10 +64,10 @@ int				execute(char **command)
 	pid_t	father;
 	char	**env;
 
-	env = get_env();
 	path = get_exec(command);
 	if (path == NULL)
 		return (0);
+	env = get_env();
 	father = fork();
 	if (father == 0)
 		execve(path, command, env);

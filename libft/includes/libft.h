@@ -111,5 +111,5 @@ void				rm_lastpath_b(t_buffer *path);
 void				ft_rm_b_path(t_buffer *my_buffer);
 int					get_nbr_word(char *str);
 char				ft_type(char *dirname);
-char				**ft_split_whitespaces(char *str);
+char				**ft_split_whitespaces(char *s);
 #endif

@@ -31,6 +31,19 @@ int		ft_malloc_line(char *str)
 	return (res);
 }
 
+int		ft_malloc_word(char *str)
+{
+	int i;
+
+	i = 0;
+	while (*str && *str != '\n' && *str != '\t' && *str != ' ')
+	{
+		i++;
+		str++;
+	}
+	return (i);
+}
+
 void	ft_cp(char *str, char **res)
 {
 	int i;
@@ -63,28 +76,24 @@ void	ft_cp(char *str, char **res)
 char	**ft_split_whitespaces(char *str)
 {
 	char	**res;
-	int		i;
-	int		j;
-	int		lenght;
+	char	*tmp;
+	char	**tmp2;
 
-	i = 0;
-	j = 0;
-	res = malloc(sizeof(char*) * (ft_malloc_line(str) + 1));
-	while (str[i] != '\0')
+	tmp = str;
+	res = (char**)malloc(sizeof(char*) * (ft_malloc_line(str) + 1));
+	tmp2 = res;
+	while (*str)
 	{
-		lenght = 0;
-		while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
-			i++;
-		while (str[i] != ' ' && str[i] != '\n' &&
-				str[i] != '\t' && str[i] != '\0')
+		if (*str == ' ' || *str == '\n' || *str == '\t')
+			str++;
+		else if (*str)
 		{
-			lenght++;
-			i++;
+			*res = malloc(sizeof(char) * ft_malloc_word(str) + 1);
+			res++;
+			while (*str && *str != '\n' && *str != '\t' && *str != ' ')
+				str++;
 		}
-		if (lenght > 0)
-			res[j] = malloc(sizeof(char) * (lenght) + 1);
-		j++;
 	}
-	ft_cp(str, res);
-	return (res);
+	ft_cp(tmp, tmp2);
+	return (tmp2);
 }
