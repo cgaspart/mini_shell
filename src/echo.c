@@ -35,7 +35,8 @@ void			my_echo(char **command)
 			ft_putstr(command[i]);
 		else if (*command[i] != '$')
 			clean_quote(command[i]);
-		ft_putchar('\n');
+		ft_putchar(' ');
 		i++;
 	}
+	ft_putchar('\n');
 }
