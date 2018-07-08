@@ -6,7 +6,7 @@
 /*   By: cgaspart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 12:59:56 by cgaspart          #+#    #+#             */
-/*   Updated: 2018/05/01 12:59:59 by cgaspart         ###   ########.fr       */
+/*   Updated: 2018/07/08 13:30:30 by cgaspart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ int				setup(char **environ)
 {
 	char *tmp;
 
-	if (environ == NULL)
+	if (environ[0] == NULL)
 		return (0);
 	lst_env(environ);
 	if (g_my_env != NULL)
 	{
 		tmp = find_env("SHLVL");
-		*tmp = *tmp + 1;
+		if (tmp != NULL)
+			*tmp = *tmp + 1;
 		return (1);
 	}
 	else
